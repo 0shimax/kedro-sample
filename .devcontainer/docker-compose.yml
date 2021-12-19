@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  kedro-example:
+    image: python37-kedro
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        GCE_ACCOUNT_EMAIL: $GCE_ACCOUNT_EMAIL
+        GCE_PROJECT_ID: $GCE_PROJECT_ID
+    command: sleep infinity
+    ports:
+      - 8888:8888
+    volumes:
+      - ~/projects:/project
+      - ~/data:/data
