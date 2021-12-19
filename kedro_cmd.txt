@@ -1,0 +1,6 @@
+kedro new --config kedro_config.yml --starter=templates
+cd {repo_name}
+pip install -r src/requirements.txt
+kedro jupyter notebook --allow-root
+kedro jupyter convert --all
+kedro run

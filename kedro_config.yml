@@ -1,0 +1,4 @@
+output_dir: ./
+project_name: Hellow Kedro
+repo_name: own_examples
+python_package: hellow_kedro
