@@ -1,0 +1,25 @@
+ENDPOINT = 'http://localhost:8001/v1/models/mymodel/versions/1:predict'
+json_request_headers = {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+}
+
+# JSON形式のリクエスト
+input_array = np.random.rand(1, 3, 224, 224).astype(np.float32)
+tensor_proto = numpy_helper.from_array(input_array)  # ONNXのutility関数でTensorProtoを作成
+
+json_str = MessageToJson(tensor_proto, use_integers_for_enums=True)  # TensorProtoをJSON形式に変換
+data = json.loads(json_str)
+
+inputs = {}
+inputs['input_0'] = data       # 保存時に指定した入力層の名前
+output_filters = ['output_0']  # 保存時に指定した出力層の名前
+
+payload = {}  # リクエストで送るペイロードの作成、 inputs と outputFilter のフィールドをそれぞれ埋める
+payload["inputs"] = inputs
+payload["outputFilter"] = output_filters
+
+res = requests.post(ENDPOINT, headers=json_request_headers, data=json.dumps(payload))
+raw_data = json.loads(res.text)['outputs']['output_0']['rawData']  # 生データを取得
+outputs = np.frombuffer(base64.b64decode(raw_data), dtype=np.float32)  # 生データはbase64でencodeされたバイナリ列なので適切にdecode
+print(outputs.shape)  # (1, 1000)

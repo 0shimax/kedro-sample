@@ -60,3 +60,9 @@ regressor:
   filepath: data/06_models/regressor.pkl
   versioned: true
   layer: models
+
+onx:
+  type: "${datasets.pickle}"
+  filepath: data/06_models/regressor_onx.pkl
+  versioned: true
+  layer: models
