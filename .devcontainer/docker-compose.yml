@@ -1,7 +1,7 @@
-version: "3.8"
+version: "3.3"
 services:
   kedro-example:
-    image: python37-kedro
+    # image: python37-kedro
     build:
       context: ./
       dockerfile: Dockerfile
@@ -12,5 +12,5 @@ services:
     ports:
       - 8888:8888
     volumes:
-      - ~/projects:/project
+      - ~/dev/kedro-sample:/kedro-sample
       - ~/data:/data

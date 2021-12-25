@@ -1,0 +1,6 @@
+gcp_bucket_name: "dev-bucket"
+
+datasets:
+  csv: "pandas.CSVDataSet"
+  pickle: "pickle.PickleDataSet"
+  json: "json.JSONDataSet"

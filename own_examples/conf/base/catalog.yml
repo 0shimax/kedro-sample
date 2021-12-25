@@ -1,0 +1,62 @@
+# Here you can define all your data sets by using simple YAML syntax.
+#
+# Documentation for this file format can be found in "The Data Catalog"
+# Link: https://kedro.readthedocs.io/en/stable/05_data/01_data_catalog.html
+
+companies:
+  type: "${datasets.csv}"
+  filepath: data/01_raw/companies.csv
+  layer: raw
+
+reviews:
+  type: "${datasets.csv}"
+  filepath: data/01_raw/reviews.csv
+  layer: raw
+
+shuttles:
+  type: pandas.ExcelDataSet
+  filepath: data/01_raw/shuttles.xlsx
+  layer: raw
+  load_args:
+    engine: openpyxl
+
+preprocessed_companies:
+  type: "${datasets.csv}"
+  filepath: data/02_intermediate/preprocessed_companies.csv
+  layer: intermediate
+
+preprocessed_shuttles:
+  type: "${datasets.csv}"
+  filepath: data/02_intermediate/preprocessed_shuttles.csv
+  layer: intermediate
+
+model_input_table:
+  type: "${datasets.csv}"
+  filepath: data/03_primary/model_input_table.csv
+  layer: primary
+
+X_train:
+  type: "${datasets.pickle}"
+  filepath: data/05_model_input/X_train.pkl
+  layer: model_input
+
+X_test:
+  type: "${datasets.pickle}"
+  filepath: data/05_model_input/X_test.pkl
+  layer: model_input
+
+y_train:
+  type: "${datasets.pickle}"
+  filepath: data/05_model_input/y_train.pkl
+  layer: model_input
+
+y_test:
+  type: "${datasets.pickle}"
+  filepath: data/05_model_input/y_test.pkl
+  layer: model_input
+
+regressor:
+  type: "${datasets.pickle}"
+  filepath: data/06_models/regressor.pkl
+  versioned: true
+  layer: models
