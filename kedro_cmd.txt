@@ -4,3 +4,6 @@ pip install -r src/requirements.txt
 kedro jupyter notebook --allow-root
 kedro jupyter convert --all
 kedro run
+
+docker run -it -v $(pwd)/own_examples/data/06_models:/kedro-sample -p 9001:8001 mcr.microsoft.com/onnxruntime/server --model_path /kedro-sample/shuttles.onnx
+docker run -it -v $(pwd)/own_examples/data/06_models:/kedro-sample -p 9002:8001 d8491f335ada --model_path /kedro-sample/pipeline.onnx
