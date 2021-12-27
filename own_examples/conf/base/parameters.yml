@@ -9,6 +9,12 @@ features:
   - d_check_complete
   - moon_clearance_complete
   - iata_approved
+float_features:
+  - engines
+  - passenger_capacity
+  - crew
+  - company_rating
+  - review_scores_rating
 categorical_features:
   - d_check_complete
   - moon_clearance_complete
