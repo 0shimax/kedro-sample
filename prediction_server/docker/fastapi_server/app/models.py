@@ -44,5 +44,6 @@ class Features(BaseModel):
     float_features: List[FloatFeatures]
     categorical_features: List[CategoricalFeatures]
 
-    def to_numpy(self, x_fetures):
+    @classmethod
+    def to_numpy(cls, x_fetures):
         return [v.to_numpy() for v in x_fetures]
