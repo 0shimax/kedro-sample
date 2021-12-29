@@ -1,0 +1,7 @@
+version: '3.3'
+services:
+  onnx_example_api:
+    build:
+      context: .
+    ports:
+      - "80:80"

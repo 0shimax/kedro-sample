@@ -24,3 +24,4 @@ model_params:
     max_depth: 7
     n_estimators: 30
     random_state: 555
+    objective: "binary:logistic"
