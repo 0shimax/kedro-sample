@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 
 from models import Features, PredictionResult
-from predict import predict
+# from predict import predict
 from prediction import Classifier
 import security
 
