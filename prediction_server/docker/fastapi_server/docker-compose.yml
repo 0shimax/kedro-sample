@@ -3,5 +3,8 @@ services:
   onnx_example_api:
     build:
       context: .
+      args:
+        S3_BUCKET: $S3_BUCKET
+        S3_BUCKET_KEY: $S3_BUCKET_KEY
     ports:
       - "80:80"

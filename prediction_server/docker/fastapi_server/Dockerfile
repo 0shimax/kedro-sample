@@ -12,4 +12,9 @@ ENV PYTHONPATH=/app
 COPY models/pipeline.onnx /tmp/pipeline.onnx
 ENV MODEL_PATH=/tmp/pipeline.onnx
 
+ARG S3_BUCKET
+ARG S3_BUCKET_KEY
+ENV S3_BUCKET=${S3_BUCKET}
+ENV S3_BUCKET_KEY=${S3_BUCKET_KEY}
+
 EXPOSE 80
