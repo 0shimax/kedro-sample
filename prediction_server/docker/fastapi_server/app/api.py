@@ -5,7 +5,7 @@ from models import Features, PredictionResult
 from prediction import Classifier
 import security
 
-cls = Classifier()
+clf = Classifier()
 api = APIRouter()
 
 @api.post("/predict", response_model=PredictionResult)
@@ -14,11 +14,11 @@ async def post_predict(
     authenticated: bool = Depends(security.validate_request),
 ):
     assert authenticated == True
-    if not cls.session:
+    if not clf.session:
         raise HTTPException(status_code=500, detail="model not found")
-    return cls.predict(data)
+    return clf.predict(data)
 
 # Synchronous processing
 @api.get("/update_model")
 async def update_model():
-    await cls.load_model()
+    await clf.load_model()

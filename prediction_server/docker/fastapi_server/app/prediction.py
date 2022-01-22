@@ -1,3 +1,4 @@
+from typing import ByteString
 import boto3
 import onnxruntime as rt
 from models import Features
@@ -15,12 +16,12 @@ class Classifier(object):
     def __init__(self):
         self.load_model()
 
-    def _read_model_from_s3(self):
+    def _read_model_from_s3(self) -> ByteString:
         return self.s3_client.get_object(
             Bucket=config.S3_BUCKET,
             Key=config.S3_BUCKET_KEY)["Body"]
 
-    def load_model(self):
+    def load_model(self) -> None:
         self.session = rt.InferenceSession(self._read_model_from_s3())
         self.float_input_name = self.session.get_inputs()[0].name
         self.categorical_input_name = self.session.get_inputs()[1].name
