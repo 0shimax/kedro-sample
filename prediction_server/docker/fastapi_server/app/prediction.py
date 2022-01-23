@@ -5,7 +5,7 @@ import onnxruntime as rt
 from models import Features
 from models import PredictionResult
 
-logger = getLogger("uvicorn")
+logger = getLogger("uvicorn.access")
 
 class Classifier(object):
     session = None
