@@ -8,9 +8,9 @@ services:
       args:
         GCE_ACCOUNT_EMAIL: $GCE_ACCOUNT_EMAIL
         GCE_PROJECT_ID: $GCE_PROJECT_ID
-    command: sleep infinity
     ports:
       - 8888:8888
     volumes:
       - ~/dev/kedro-sample:/kedro-sample
       - ~/data:/data
+    tty: true
