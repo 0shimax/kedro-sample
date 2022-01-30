@@ -28,7 +28,7 @@ class Classifier(CTCVInferenceServicer):
 class ModelUpdater(CTCVInferenceServicer):
     async def update_model(self, request: UpdateParams,
                        context: grpc.ServicerContext) -> Reply:
-        logging.info("Serving request %s", request)
+        logging.info(f"Serving request: {request}")
         ctcv_classifier.load_model()
         yield Reply(status="200")
 
