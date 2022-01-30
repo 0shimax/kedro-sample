@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+option java_package = "ex.grpc";
+option objc_class_prefix = "HSW";
+
+package onnxGrpcServer;
+
+// Service definition.
+service CTCVInferenceServicer {
+  rpc predict (stream Features) returns (stream Predicted) {}
+  rpc update_model (UpdateParams) returns (Reply) {}
+}
+
+// types
+message FloatData {
+  float engines = 1;
+  float passenger_capacity = 2;
+  float crew = 3;
+  float company_rating = 4;
+  float review_scores_rating = 5;
+}
+
+message CategoricalData {
+  string d_check_complete=1;
+  string moon_clearance_complete=2;
+  string iata_approved = 3;
+}
+
+message Features {
+  FloatData float_features = 1;
+  CategoricalData categorical_features = 2;
+}
+
+message Predicted {
+  float prob = 1;
+}
+
+message UpdateParams {
+  string param= 1;
+}
+
+message Reply {
+  string status = 1;
+}
