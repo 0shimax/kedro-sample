@@ -1,0 +1,28 @@
+FROM debian:bullseye-slim
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get --allow-releaseinfo-change update
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends cmake build-essential autoconf libtool pkg-config libssl-dev ssh git ca-certificates \
+    && apt-get clean
+
+WORKDIR /root
+RUN git clone --recurse-submodules -b v1.43.2 https://github.com/grpc/grpc
+RUN mkdir -p grpc/cmake/build
+WORKDIR /root/grpc/cmake/build
+RUN cmake -DgRPC_INSTALL=ON \
+      -DgRPC_BUILD_TESTS=OFF \
+      -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE \
+      ../.. \
+    && make -j \
+    && make install
+WORKDIR /root/grpc
+
+# COPY ./app /app
+# WORKDIR /app
+
+# ARG MODEL_PATH
+# ENV MODEL_PATH=${MODEL_PATH}
+
+# EXPOSE 50051
