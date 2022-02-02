@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package simple;
+
+service Add {
+  rpc Add (AddRequest) returns (AddReply) {}
+}
+
+message AddRequest {
+  string str1 = 1;
+  string str2 = 2;
+}
+
+message AddReply {
+  string str = 1;
+}
