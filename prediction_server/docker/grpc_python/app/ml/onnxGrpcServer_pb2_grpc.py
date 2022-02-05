@@ -15,13 +15,13 @@ class CTCVInferenceServicerStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.predict = channel.stream_stream(
-                '/onnxGrpcServer.CTCVInferenceServicer/predict',
+        self.Predict = channel.stream_stream(
+                '/onnxserver.CTCVInferenceServicer/Predict',
                 request_serializer=onnxGrpcServer__pb2.Features.SerializeToString,
                 response_deserializer=onnxGrpcServer__pb2.Predicted.FromString,
                 )
-        self.update_model = channel.unary_unary(
-                '/onnxGrpcServer.CTCVInferenceServicer/update_model',
+        self.UpdateModel = channel.unary_unary(
+                '/onnxserver.CTCVInferenceServicer/UpdateModel',
                 request_serializer=onnxGrpcServer__pb2.UpdateParams.SerializeToString,
                 response_deserializer=onnxGrpcServer__pb2.Reply.FromString,
                 )
@@ -31,13 +31,13 @@ class CTCVInferenceServicerServicer(object):
     """Service definition.
     """
 
-    def predict(self, request_iterator, context):
+    def Predict(self, request_iterator, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def update_model(self, request, context):
+    def UpdateModel(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -46,19 +46,19 @@ class CTCVInferenceServicerServicer(object):
 
 def add_CTCVInferenceServicerServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'predict': grpc.stream_stream_rpc_method_handler(
-                    servicer.predict,
+            'Predict': grpc.stream_stream_rpc_method_handler(
+                    servicer.Predict,
                     request_deserializer=onnxGrpcServer__pb2.Features.FromString,
                     response_serializer=onnxGrpcServer__pb2.Predicted.SerializeToString,
             ),
-            'update_model': grpc.unary_unary_rpc_method_handler(
-                    servicer.update_model,
+            'UpdateModel': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateModel,
                     request_deserializer=onnxGrpcServer__pb2.UpdateParams.FromString,
                     response_serializer=onnxGrpcServer__pb2.Reply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'onnxGrpcServer.CTCVInferenceServicer', rpc_method_handlers)
+            'onnxserver.CTCVInferenceServicer', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
@@ -68,7 +68,7 @@ class CTCVInferenceServicer(object):
     """
 
     @staticmethod
-    def predict(request_iterator,
+    def Predict(request_iterator,
             target,
             options=(),
             channel_credentials=None,
@@ -78,14 +78,14 @@ class CTCVInferenceServicer(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.stream_stream(request_iterator, target, '/onnxGrpcServer.CTCVInferenceServicer/predict',
+        return grpc.experimental.stream_stream(request_iterator, target, '/onnxserver.CTCVInferenceServicer/Predict',
             onnxGrpcServer__pb2.Features.SerializeToString,
             onnxGrpcServer__pb2.Predicted.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def update_model(request,
+    def UpdateModel(request,
             target,
             options=(),
             channel_credentials=None,
@@ -95,7 +95,7 @@ class CTCVInferenceServicer(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/onnxGrpcServer.CTCVInferenceServicer/update_model',
+        return grpc.experimental.unary_unary(request, target, '/onnxserver.CTCVInferenceServicer/UpdateModel',
             onnxGrpcServer__pb2.UpdateParams.SerializeToString,
             onnxGrpcServer__pb2.Reply.FromString,
             options, channel_credentials,

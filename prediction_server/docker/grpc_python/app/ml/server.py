@@ -3,7 +3,9 @@ import asyncio
 import logging
 
 import grpc
+from grpc_reflection.v1alpha import reflection
 import config
+from onnxGrpcServer_pb2 import DESCRIPTOR
 from onnxGrpcServer_pb2 import Features, UpdateParams
 from onnxGrpcServer_pb2 import Predicted, Reply
 from onnxGrpcServer_pb2_grpc import CTCVInferenceServicer
@@ -19,16 +21,13 @@ ctcv_classifier = CTCVClassifier(
 class Classifier(CTCVInferenceServicer):
     async def predict(self, request_iterator: List[Features],
                        context: grpc.aio.ServicerContext) -> Tuple[Predicted]:
-        logging.info("Serving request %s", request_iterator)
         async for request in request_iterator:
-            logging.info("Serving request %s", request)
             yield Predicted(prob=ctcv_classifier.predict(request))
 
 
 class ModelUpdater(CTCVInferenceServicer):
     async def update_model(self, request: UpdateParams,
                        context: grpc.ServicerContext) -> Reply:
-        logging.info(f"Serving request: {request}")
         ctcv_classifier.load_model()
         yield Reply(status="200")
 
@@ -37,6 +36,11 @@ async def serve() -> None:
     server = grpc.aio.server()
     add_CTCVInferenceServicerServicer_to_server(Classifier(), server)
     add_CTCVInferenceServicerServicer_to_server(ModelUpdater(), server)
+    SERVICE_NAMES = (
+        DESCRIPTOR.services_by_name["CTCVInferenceServicer"].full_name,
+        reflection.SERVICE_NAME,
+    )
+    reflection.enable_server_reflection(SERVICE_NAMES, server)
     listen_addr = "[::]:50051"
     server.add_insecure_port(listen_addr)
     logging.info(f"Starting server on {listen_addr}")

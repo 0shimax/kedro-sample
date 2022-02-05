@@ -9,14 +9,14 @@ import time
 
 
 async def request(stub, payloads):
-    start = time.time()
+    start = time.perf_counter()
     responses = stub.predict(iter(payloads))
     while True:
         response = await responses.read()
         if response == grpc.aio.EOF:
             break
         # print(f"responce: {response.prob}")
-    print(time.time() - start)
+    print("net time[ms]:", time.perf_counter() - start)
 
 async def run():
     async with grpc.aio.insecure_channel('localhost:50051') as channel:

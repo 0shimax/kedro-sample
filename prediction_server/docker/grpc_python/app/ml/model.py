@@ -45,6 +45,7 @@ class CTCVClassifier(object):
 
     def _build_session(self) -> rt.InferenceSession:
         logging.info("Fetching model file from Local...")
+        logging.info(f"model_file_path: {self.model_file_path}")
         return rt.InferenceSession(self.model_file_path)
 
     def load_model(self) -> None:
@@ -58,7 +59,6 @@ class CTCVClassifier(object):
         logging.info("Model load Done.")
 
     def predict(self, data: Features) -> float:
-        logging.info(f"data.float_features: {data.categorical_features}")
         inputs = {
             self.float_input_name: [build_float_input(data.float_features)],
             self.categorical_input_name: [build_categorical_input(data.categorical_features)],

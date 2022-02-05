@@ -1,4 +1,4 @@
-FROM grcp_cpp_base:latest
+FROM debian:bullseye-slim
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -7,10 +7,12 @@ WORKDIR /root
 RUN wget https://github.com/microsoft/onnxruntime/releases/download/v1.10.0/onnxruntime-linux-x64-1.10.0.tgz \
     && tar -zxvf onnxruntime-linux-x64-1.10.0.tgz
 
-COPY ./app /app
-WORKDIR /app
+COPY ./app/src/onnxserver/build/server /app/server
+COPY ./models /models
 
 ARG MODEL_PATH
 ENV MODEL_PATH=${MODEL_PATH}
 
+WORKDIR /app
 EXPOSE 50051
+CMD ["/app/server"]

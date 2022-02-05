@@ -3,12 +3,12 @@ syntax = "proto3";
 option java_package = "ex.grpc";
 option objc_class_prefix = "HSW";
 
-package onnxGrpcServer;
+package onnxserver;
 
 // Service definition.
 service CTCVInferenceServicer {
-  rpc predict (stream Features) returns (stream Predicted) {}
-  rpc update_model (UpdateParams) returns (Reply) {}
+  rpc Predict (stream Features) returns (stream Predicted) {}
+  rpc UpdateModel (UpdateParams) returns (Reply) {}
 }
 
 // types
