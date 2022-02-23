@@ -1,16 +1,12 @@
-version: "3.3"
+version: "3.8"
 services:
   kedro-example:
-    # image: python37-kedro
     build:
       context: ./
       dockerfile: Dockerfile
-      args:
-        GCE_ACCOUNT_EMAIL: $GCE_ACCOUNT_EMAIL
-        GCE_PROJECT_ID: $GCE_PROJECT_ID
     ports:
-      - 8888:8888
+      - 9999:8888
     volumes:
-      - ~/dev/kedro-sample:/kedro-sample
+      - ~/projects/kedro-sample:/kedro-sample
       - ~/data:/data
     tty: true
