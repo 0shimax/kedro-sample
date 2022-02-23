@@ -1,4 +1,4 @@
-FROM python:3.7-slim-buster
+FROM google/cloud-sdk
 
 RUN apt update \
     && apt install -y --no-install-recommends \
